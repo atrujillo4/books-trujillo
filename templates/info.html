@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: black;
+        }
+        blockquote{
+            background-color:lavender;
+            max-width: 600px;
+            margin: auto;
+            padding: 5px;
+        }
+        #book_info{
+            background-color: lavender;
+            text-align: center;
+            max-width: 600px;
+            margin: auto;
+        }
+        #header, h3{
+            text-align: center;
+            color: hotpink;
+            padding: 20px;
+        }
+        #submit_review{
+            background-color: lavender;
+            max-width: 600px;
+            margin: auto;
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            #submit_review, #book_info, blockquote{
+                max-width: 450px;
+            }
+        }
+        #back{
+            color: hotpink;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        {% if (session['username']) is defined and session['username'] %}
+            <a class="navbar-brand" href="#">Hello, {{ session['username'] }}</a>
+            <div class="nav navbar-nav ml-auto">
+                <form class="form-inline" action="{{ url_for('logout') }}">
+                    <button>Logout</button>
+                </form>
+            </div>
+        {% else %}
+            <a class="navbar-brand" href="#">Welcome</a>
+            <div class="nav navbar-nav ml-auto"></div>
+                <form class="form-inline" action="{{ url_for('index') }}">
+                    <button>Login</button>
+                </form>
+            </div>
+        {% endif %}
+    </nav>
+    <h1 id="header">Book Reviews</h1>
+    <!-- BOOK INFO -->
+    <div id="book_info" class="container">
+        <p id="title">Title: {{ data.book_title }}</p>
+        <p id="author">Author: {{ data.book_author }}</p>
+        <p id="pub_year">Publication Year: {{ data.book_publication_year }}</p>
+        <p od="isbn">ISBN: {{ data.book_isbn }}</p>
+
+        <!-- API REVIEWS -->
+        {% block content %}
+                {% if response|length == 0 %}
+                    <p>No reviews from Goodreads.</p>  
+                {% else %}
+                    <p>Average rating: {{ response.books[0].average_rating }}</p>
+                    <p>Number of ratings: {{ response.books[0].ratings_count }}</p>
+                {% endif %}
+        {% endblock content %}
+    </div>
+
+    <p id="back">
+        <a href="/books">
+            Search another book
+        </a>
+    </p>
+
+    <!-- REVIEWS -->
+    {% if reviews|length > 0 %}     
+        <h3>Reviews from our users</h3>
+        {% for review in reviews %}
+            <div class="container">
+                <blockquote>
+                    <h6>
+                        {{ review.username }}
+                        <small class="text-muted">Rated: {{ review.rating }}</small>
+                    </h3>
+                    <p>{{ review.comment }}</p>
+                </blockquote>
+            </div> 
+        {% endfor %}
+    {% else %}
+        <h3>No Reviews yet</h3>
+    {% endif %}
+
+    <!-- SUBMIT REVIEW FORM -->
+    {% if review_allowed == true %}
+        <form id="submit_review" action="{{ url_for('submit_review') }}" method="POST">
+            <div class="form-group">
+                <input type="hidden" name="book_isbn" value="{{ data.book_isbn }}"readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Rating:</label>
+                <select class="form-control" id="rating" name="rating">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea class="form-control" id="comment" name="comment" rows="2"></textarea>
+            </div>
+            <button>Submit</button>
+        </form>
+    {% endif %}
+
+</body>
+</html>

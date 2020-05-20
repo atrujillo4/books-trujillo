@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: black;
+        }
+        #header{
+            text-align: center;
+            color: hotpink;
+            padding: 20px;
+        }
+        #sign_in_form{
+            max-width: 600px;
+            margin: auto;
+            background-color: lavender;
+            padding: 20px;
+            margin-bottom: 30px;
+            
+        }
+        #signup_message{
+            text-align: center;
+            color: white;
+        }
+        #signup_btn{
+            display: flex;
+            padding: 5px;
+            margin: auto;
+        }
+        @media only screen and (max-width: 600px) {
+            #sign_in_form{
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="header">Book Reviews</h1>
+    
+    <form id="sign_in_form" action="{{ url_for('sign_in') }}" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+    
+    <p id="signup_message">Don't have an account?</p>
+    <form action="{{ url_for('signup') }}">
+        <button id="signup_btn">Sign Up</button>
+    </form>
+    
+</body>
+</html>

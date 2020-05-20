@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        #books{
+            color:black;
+            text-decoration: none;
+        }
+        body{
+            background-color: black;
+        }
+        h1{
+            text-align: center;
+            color: hotpink;
+            padding: 20px;
+        }
+        #book_search, .books{
+            max-width: 740px;
+            margin: auto;
+            background-color: lavender;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .books{
+            text-align: center;
+        }
+        @media only screen and (max-width: 768px) {
+            #book_search, .books{
+                max-width: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        {% if (session['username']) is defined and session['username'] %}
+            <a class="navbar-brand" href="#">Hello, {{ session['username'] }}</a>
+            <div class="nav navbar-nav ml-auto">
+                <form class="form-inline" action="{{ url_for('logout') }}">
+                    <button>Logout</button>
+                </form>
+            </div>
+        {% else %}
+            <a class="navbar-brand" href="#">Welcome</a>
+            <div class="nav navbar-nav ml-auto"></div>
+                <form class="form-inline" action="{{ url_for('index') }}">
+                    <button>Login</button>
+                </form>
+            </div>
+        {% endif %}
+    </nav>
+    <h1>Book Reviews</h1>
+
+    <form id="book_search" action="{{ url_for('books') }}" method="POST">
+        <div class="form-group">
+            <label for="book_isbn">ISBN: </label>
+            <input type="text" class="form-control" name="book_isbn" placeholder="ISBN Number">
+        </div>
+        <div class="form-group">
+            <label for="book_title">Title: </label>
+            <input type="text" class="form-control" name="book_title" placeholder="Book Title">
+        </div>
+        <div class="form-group">
+            <label for="book_author">Author: </label>
+            <input type="text" class="form-control" name="book_author" placeholder="Book Author">
+        </div>
+        <button class="btn btn-primary">Search</button>
+    </form>
+    
+    {% block content %}
+        {% if (books is defined) and (books) %}
+            <div class="books">
+                {% for book in books %}
+                    <p>
+                        <a href="/books/{{book.book_isbn}}" id="books">
+                            Book Title: {{ book.book_title }}
+                        </a>
+                    </p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="books">No books</div>
+        {% endif %}
+    {% endblock content %}
+    
+    
+</body>
+</html>

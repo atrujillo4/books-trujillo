@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Reviews</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: black;
+        }
+        #header{
+            text-align: center;
+            color: hotpink;
+            padding: 20px;
+        }
+        #signup_form{
+            max-width: 600px;
+            margin: auto;
+            background-color: lavender;
+            padding: 20px;
+            margin-bottom: 30px;
+            
+        }
+        #signup_message{
+            text-align: center;
+            color: white;
+        }
+        #signup_btn{
+            display: flex;
+            padding: 5px;
+            margin: auto;
+        }
+        @media only screen and (max-width: 600px) {
+            #signup_form{
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="header">Signup Page</h1>
+    <form id="signup_form" action="{{ url_for('create_user') }}" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            <small id="password-warning" class="form-text text-muted">Please DO NOT use a real password. Our database is not secure!</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Signup</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('index') }}'">Cancel</button>
+    </form>
+</body>
+</html>
