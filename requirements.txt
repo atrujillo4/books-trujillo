@@ -3,3 +3,7 @@ Flask-Session
 psycopg2-binary
 SQLAlchemy
 gunicorn
+requests
+Werkzeug
+Jinja2
+numpy
