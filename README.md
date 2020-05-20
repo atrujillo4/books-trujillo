@@ -2,18 +2,6 @@
 
 Web Programming with Python and JavaScript
 
-<!-- HOW TO RUN PROGRAM FROM TERMNAL -->
-export FLASK_APP=application.py
-FLASK_DEBUG=1
-export DATABASE_URL="postgres://djfemonowugayt:670e8c082bbe9f495e071f803ed53295ca1908854aade3c8d96dbd4ae37a3b0b@ec2-18-206-84-251.compute-1.amazonaws.com:5432/d7coj5h4ibgrrm"
-
-
-<!-- TO CONNECT TO DATABASE IN TERMINAL -->
-heroku pg:psql --app books-trujillo
-\d
-SELECT * FROM USERS;
-\q
-
 <!-- OVERVIEW -->
 In this project, you’ll build a book review website. Users will be able to register for your website and then log in using their username and password. Once they log in, they will be able to search for books, leave reviews for individual books, and see the reviews made by other people. You’ll also use the a third-party API by Goodreads, another book review website, to pull in ratings from a broader audience. Finally, users will be able to query for book details and book reviews programmatically via your website’s API.
 <!-- HINTS -->
