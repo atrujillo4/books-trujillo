@@ -111,6 +111,11 @@ def api(book_isbn):
         review_average = db.execute("SELECT AVG(rating) FROM reviews WHERE book_isbn = :book_isbn", {"book_isbn": book_isbn}).fetchone()
     except Exception as e:
         return jsonify({"error": "Unable to retrieve book information"}), 422
+    if review_average[0] is None:
+        review_average = [0]
+    print(book_info)
+    print(review_count)
+    print(review_average)
     if book_info is None:
         return jsonify({"error": "Invalid book ISBN"}), 422
     return jsonify({
