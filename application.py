@@ -3,7 +3,7 @@ import csv
 
 import requests
 
-from flask import Flask, session, render_template, request, redirect, url_for
+from flask import Flask, session, render_template, request, redirect, url_for, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -41,7 +41,7 @@ def sign_in():
     password = request.form.get("password")
     if db.execute("SELECT * FROM users WHERE username = :username AND password= :password",
         {"username": username, "password": password}).rowcount == 0:
-        return render_template("error.html", message="Username or password do not match")
+        return render_template("error.html", message="Username and password do not match")
     session['user_id'] = db.execute("SELECT users_id FROM users WHERE username = :username AND password = :password",
         {"username": username, "password": password}).fetchone()
     session['username'] = username
@@ -102,3 +102,22 @@ def submit_review():
         {"book_isbn": book_isbn, "rating": rating, "comment": comment, "users_id": users_id})
     db.commit()
     return redirect(url_for('.data', book_isbn=book_isbn))
+
+@app.route("/api/<string:book_isbn>")
+def api(book_isbn):
+    try:
+        book_info = db.execute("SELECT * from books WHERE book_isbn = :book_isbn", {"book_isbn": book_isbn}).fetchone()
+        review_count = db.execute("SELECT count(*) FROM reviews WHERE book_isbn = :book_isbn", {"book_isbn": book_isbn}).fetchone()
+        review_average = db.execute("SELECT AVG(rating) FROM reviews WHERE book_isbn = :book_isbn", {"book_isbn": book_isbn}).fetchone()
+    except Exception as e:
+        return jsonify({"error": "Unable to retrieve book information"}), 422
+    if book_info is None:
+        return jsonify({"error": "Invalid book ISBN"}), 422
+    return jsonify({
+        'title': book_info[1],
+        'author': book_info[2],
+        'year': int(book_info[3]),
+        'isbn': book_info[0],
+        'review_count': review_count[0],
+        'average_score': float(review_average[0])
+    })
