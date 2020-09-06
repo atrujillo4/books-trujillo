@@ -77,7 +77,7 @@ def logout():
 @app.route("/books/<string:book_isbn>")
 def data(book_isbn):
     try:
-        res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "aIc48NbjnzcHzkC8JftJ8g", "isbns": book_isbn})
+        res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": os.getenv("goodread_API_key"), "isbns": book_isbn})
         response = res.json()
     except Exception as e:
         response = ""

@@ -1,30 +1,37 @@
-# Project 1
+Background: 
+  The web application is an online book review website built using Flask, PostgreSQL, and an API by Goodreads. Users are able to register and then log in using their username and password. Once logged in, users are able to search for books, leave reviews for individual books, and see the reviews made by other people. The API by Goodreads, a different book review website, is used to pull in ratings from a broader audience. Lastly, users are able to query for book details and book reviews programmatically via the website's API(see instructions under "API Access").
 
-Web Programming with Python and JavaScript
+---------------------------------------------------------------------
+Implementations:
+  Registration: Users are able to register on the website, providing a username and password. 
 
-<!-- OVERVIEW -->
-In this project, you’ll build a book review website. Users will be able to register for your website and then log in using their username and password. Once they log in, they will be able to search for books, leave reviews for individual books, and see the reviews made by other people. You’ll also use the a third-party API by Goodreads, another book review website, to pull in ratings from a broader audience. Finally, users will be able to query for book details and book reviews programmatically via your website’s API.
-<!-- HINTS -->
-At minimum, you’ll probably want at least one table to keep track of users, one table to keep track of books, and one table to keep track of reviews. But you’re not limited to just these tables, if you think others would be helpful!
+  Login: Users, once registered, are able to log in to the website with their username and password. 
 
-In terms of how to “log a user in,” recall that you can store information inside of the session, which can store different values for different users. In particular, if each user has an id, then you could store that id in the session (e.g., in session["user_id"]) to keep track of which user is currently logged in.
-<!-- REQUIREMENTS -->
+  Logout: Logged in users are able to log out of the site. 
 
-<!-- DONE -->
-Registration: Users should be able to register for your website, providing (at minimum) a username and password.
-<!-- DONE -->
-Login: Users, once registered, should be able to log in to your website with their username and password.
-<!-- DONE -->
-Logout: Logged in users should be able to log out of the site.
-<!-- DONE -->
-Import: Provided for you in this project is a file called books.csv, which is a spreadsheet in CSV format of 5000 different books. Each one has an ISBN number, a title, an author, and a publication year. In a Python file called import.py separate from your web application, write a program that will take the books and import them into your PostgreSQL database. You will first need to decide what table(s) to create, what columns those tables should have, and how they should relate to one another. Run this program by running python3 import.py to import the books into your database, and submit this program with the rest of your project code.
-<!-- DONE -->
-Search: Once a user has logged in, they should be taken to a page where they can search for a book. Users should be able to type in the ISBN number of a book, the title of a book, or the author of a book. After performing the search, your website should display a list of possible matching results, or some sort of message if there were no matches. If the user typed in only part of a title, ISBN, or author name, your search page should find matches for those as well!
-<!-- DONE -->
-Book Page: When users click on a book from the results of the search page, they should be taken to a book page, with details about the book: its title, author, publication year, ISBN number, and any reviews that users have left for the book on your website.
-<!-- DONE -->
-Review Submission: On the book page, users should be able to submit a review: consisting of a rating on a scale of 1 to 5, as well as a text component to the review where the user can write their opinion about a book. Users should not be able to submit multiple reviews for the same book.
-<!-- DONE -->
-Goodreads Review Data: On your book page, you should also display (if available) the average rating and number of ratings the work has received from Goodreads.
-<!-- DONE -->
-API Access: If users make a GET request to your website’s /api/<isbn> route, where <isbn> is an ISBN number, your website should return a JSON response containing the book’s title, author, publication date, ISBN number, review count, and average score. The resulting JSON should follow the format:
+  Search: Once a user has logged in, they are taken to a page where they can search for a book. Users are able to type in the ISBN number of a book, the title of a book, or the author of a book. If the user types in only part of a title, ISBN, or author name, the search page will find matches for those as well. 
+
+  Book page: When users click on a book from the results of the search page, they will be taken to a book page, with details about the book: its title, author, publication year, ISBN number, and any reviews that users have left for the book on the website. 
+
+  Review Submission: On the book page, users are able to submit a review: consisting of a rating on a scale of 1 to 5, as well as a text component to review where the user can write their opinion about a book. Users are NOT able to submit multiple reviews for the same book. 
+
+  Goodreads Review Data: On each book page, the website will display (if available) the average rating and number of ratings the book has received from Goodreads. 
+
+  API Access: Users are able to make a GET request to the website's /api/<isbn> route, where <isbn> is an ISBN number. The website will return a JSON response containing the book's title, author, publication date, ISBN number, review count, and average score. The resulting JSON is formatted as followed: 
+
+{
+    "title": "Memory",
+    "author": "Doug Lloyd",
+    "year": 2015,
+    "isbn": "16321168146",
+    "review_count": 28,
+    average_score": 5.0
+} 
+
+If the requested ISBN number isn't in the database, the website will a JSON response with an error and its description. 
+
+---------------------------------------------------------------------
+Future implementations:
+  1. Allow the ability to delete/edit commits that a user posted. 
+
+  2. Allow users to add a picture to their profile to give a more personalized feel to each user. 
