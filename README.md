@@ -1,8 +1,8 @@
-Background: 
+**Background**: <br>
   The web application is an online book review website built using Flask, PostgreSQL, and an API by Goodreads. Users are able to register and then log in using their username and password. Once logged in, users are able to search for books, leave reviews for individual books, and see the reviews made by other people. The API by Goodreads, a different book review website, is used to pull in ratings from a broader audience. Lastly, users are able to query for book details and book reviews programmatically via the website's API(see instructions under "API Access").
 
 ---------------------------------------------------------------------
-Implementations:
+**Implementations:** <br>
   Registration: Users are able to register on the website, providing a username and password. 
 
   Login: Users, once registered, are able to log in to the website with their username and password. 
@@ -31,7 +31,7 @@ Implementations:
 If the requested ISBN number isn't in the database, the website will a JSON response with an error and its description. 
 
 ---------------------------------------------------------------------
-Future implementations:
+**Future implementations**:
   1. Allow the ability to delete/edit commits that a user posted. 
 
   2. Allow users to add a picture to their profile to give a more personalized feel to each user. 
